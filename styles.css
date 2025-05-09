@@ -1,0 +1,181 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-image: url('pintura-liquida-con-patrones-ondulados_9216x5184_xtrafondos.com.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  backdrop-filter: blur(10px); 
+  font-size: 1.2em; 
+ }
+
+ .container {
+  background-color: rgba(244, 244, 244, 0.8); 
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); 
+  overflow: hidden;
+  width: 95%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+ }
+
+ header {
+  background-color: rgba(44, 62, 80, 0.9); 
+  color: white;
+  padding: 50px; 
+  text-align: center;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+ }
+
+ header h1 {
+  margin: 0;
+  font-size: 2.2em; 
+  flex-grow: 1;
+  text-align: center; 
+ }
+
+ .profile-container {
+  display: flex;
+  align-items: center;
+ }
+
+ .profile-image {
+  width: 80px; 
+  height: 80px; 
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 30px; 
+ }
+
+ .profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+ }
+
+ .profile-text {
+  color: white;
+  margin-left: 10px;
+  font-size: 1.1em; 
+ }
+
+ main {
+  display: flex;
+  padding: 30px;
+  gap: 30px;
+ }
+
+ .new-note-container,
+ .notes-list-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 3px 8px rgba(44, 62, 80, 0.9);
+  flex: 1;
+ }
+
+ .new-note-container h2,
+ .notes-list-container h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.8em; 
+  text-align: center;
+ }
+
+ .input-group {
+  margin-bottom: 20px;
+ }
+
+ .input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 1.1em;
+ }
+
+ .input-group input[type="text"],
+ .input-group textarea {
+  width: calc(100% - 16px);
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.1em;
+ }
+
+ .input-group textarea {
+  min-height: 100px;
+ }
+
+ .save-button {
+  background-color: #3772FF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+ }
+
+ .save-button:hover {
+  background-color: #2952cc;
+ }
+
+
+ .empty-message {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  padding: 15px;
+  font-size: 1.1em;
+ }
+
+ .button {
+  margin: 0;
+  height: auto;
+  background: transparent;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+ }
+
+ .button {
+  --border-right: 6px;
+  --text-stroke-color: rgba(12, 12, 12, 0.6);
+  --animation-color: rgba(44, 62, 80, 0.9);
+  --fs-size: 2em;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: 24PX; 
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+ }
+ .hover-text {
+  position: absolute;
+  box-sizing: border-box;
+  content: attr(data-text);
+  color: var(--animation-color);
+  width: 0%;
+  inset: 0;
+  border-right: var(--border-right) solid var(--animation-color);
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-text-stroke: 1px var(--animation-color);
+ }
+ 
+ .button:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 23px var(--animation-color))
+ }
