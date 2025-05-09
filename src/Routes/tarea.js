@@ -1,15 +1,15 @@
 "use strict"
 
 var express = require('express');
-var tarea = require('../Controllers/tarea');
+var Tarea = require('../Controllers/tarea');
 var router = express.Router();
 
 //rutas
-router.post('/save', tarea.save);
-router.get('/tareas', tarea.getTareas);
+router.post('/save', Tarea.save);
+router.get('/tareas', Tarea.getTareas);
 
-router.delete('/tarea/:id', tarea.deleteTarea);
-router.put('/update/:id', tarea.updateTarea);
+router.delete('/delete/:id', Tarea.delete);
+router.put('/update/:id', Tarea.update);
 
 module.exports = router;
 
