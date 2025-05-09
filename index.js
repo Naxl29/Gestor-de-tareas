@@ -10,7 +10,7 @@ const url = "mongodb+srv://nicolas:nicolas123@cluster0.2sexo24.mongodb.net/?retr
 //Configuración para evitrar fallos de conexión:
 mongoose.Promise = global.Promise;
 
-var tareaRoutes = require('./routes/tarea');
+var tareaRoutes = require('./src/routes/tarea');
 
 //Se carga el body.parser:
 app.use(bodyParser.urlencoded({ extend: false }));
@@ -23,7 +23,7 @@ app.use((req, res, next) =>{
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-header', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res,header('Allow', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Allow', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 });
 
