@@ -86,43 +86,41 @@ var controller = {
             })
         })
 
+    },
+
+    update : (req, res) => {
+        var tareaId = req.params.id;
+        var params = req.body.params;
+        const title = params.title;
+        const description = params.description;
+
+        Tarea.findOneAndUpdate(
+            { _id: tareaId },
+            { title: title, description: description },
+            { new: true },
+            (err, tareaUpdated) => {
+                if (err) {
+                    return res.status(500).send({
+                        status: "error",
+                        message: "Error al actualizar!!"
+                    });
+                }
+
+                if (!tareaUpdated) {
+                    return res.status(404).send({
+                        status: "error",
+                        message: "Error, no existe la tarea!!"
+                    });
+                }
+
+                // Si no hay ningún error obtenemos la tarea actualizada
+                return res.status(200).send({
+                    status: "success",
+                    tarea: tareaUpdated
+                });
+            }
+        );
     }
 }
-update: (req, res) => {
-    var tareaId = req.params.id;
 
-    // Recogemos los datos del body
-    var params = req.body;
-
-    // Asignar valores
-    const title = params.title;
-    const description = params.description;
-
-    Tarea.findOneAndUpdate(
-        { _id: tareaId },
-        { title: title, description: description },
-        { new: true },
-        (err, tareaUpdated) => {
-            if (err) {
-                return res.status(500).send({
-                    status: "error",
-                    message: "Error al actualizar!!"
-                });
-            }
-
-            if (!tareaUpdated) {
-                return res.status(404).send({
-                    status: "error",
-                    message: "Error, no existe la tarea!!"
-                });
-            }
-
-            // Si no hay ningún error obtenemos la tarea actualizada
-            return res.status(200).send({
-                status: "success",
-                tarea: tareaUpdated
-            });
-        }
-    );
-}
 module.exports = controller;
