@@ -1,18 +1,12 @@
 {
-<<<<<<< HEAD
   "name": "gestor-de-tareas",
   "version": "1.0.0",
   "description": "Proyecto de gestor de tareas utilizando MongoDB",
-=======
-  "name": "gestor_tareas",
-  "version": "1.0.0",
->>>>>>> 2e1ebc4d0e7220ee722eea7c507ae51270a87fc3
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.js"
   },
-<<<<<<< HEAD
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Naxl29/Gestor-de-tareas.git"
@@ -24,22 +18,13 @@
     "url": "https://github.com/Naxl29/Gestor-de-tareas/issues"
   },
   "homepage": "https://github.com/Naxl29/Gestor-de-tareas#readme",
-=======
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
->>>>>>> 2e1ebc4d0e7220ee722eea7c507ae51270a87fc3
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
     "mongoose": "^8.14.2",
-<<<<<<< HEAD
-=======
     "mongose": "^0.0.2-security"
   },
   "devDependencies": {
->>>>>>> 2e1ebc4d0e7220ee722eea7c507ae51270a87fc3
     "nodemon": "^3.1.10"
   }
 }
