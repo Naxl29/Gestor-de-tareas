@@ -1,7 +1,7 @@
 "use strict"
 
 var express = require('express');
-var tarea = require('../controllers/tarea');
+var tarea = require('../Controllers/tarea');
 var router = express.Router();
 
 //rutas

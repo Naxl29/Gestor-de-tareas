@@ -54,7 +54,7 @@ var controller = {
 
             //Si se obtienen las tareas:
             return res.status(200).send({
-                status: 'Error',
+                status: 'success',
                 tareas
             })
         })
