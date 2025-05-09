@@ -31,7 +31,7 @@ var controller = {
         })
     },
 
-    getTareas (req, res) => {
+    getTareas: (req, res) => {
 
         var query = Tarea.find({});
 
@@ -45,7 +45,46 @@ var controller = {
             }
 
             //Si no existen tareas:
-            if(!tareas)
-        })
-    }
+            if(!tareas){
+                return resizeTo.status(404).send({
+                    status: 'Error',
+                    message: 'No hay tareas para mostrar'
+                })
+            }
 
+            //Si se obtienen las tareas:
+            return res.status(200).send({
+                status: 'Error',
+                tareas
+            })
+        })
+    },
+
+    //Eliminar tarea:
+    delete : (req, res) =>{
+        var tareaId = req.params.id;
+        Tarea.findOneAndDelete({_id: tareaId}, (err, tareaRemoved) =>{
+
+            if(err){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Error al eliminar'
+                })
+            }
+
+            if(!tareaRemoved){
+                return res.status(404).send({
+                    status: 'Error',
+                    message: 'No se ha encontrado la tarea'
+                })
+            }
+
+            //Si no hay ningún error:
+            return res.status(200).send({
+                status: 'success',
+                tarea: tareaRemoved
+            })
+        })
+
+    }
+}
