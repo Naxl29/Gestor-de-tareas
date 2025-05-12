@@ -8,11 +8,11 @@ const path = require('path'); // Sirve para manejar las rutas de forma segura
 
 const app = express();
 const port = 3000;
-const url = "mongodb+srv://nicolas:nicolas123@cluster0.2sexo24.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const url = "mongodb+srv://nicolas:nicolas123@cluster0.6srj52h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 //Configuración para evitrar fallos de conexión:
 mongoose.Promise = global.Promise;
 
-var tareaRoutes = require('./src/Routes/tarea'); // El nombre de la ruta no esta escrito correctamente
+var tareaRoutes = require('./src/routes/tareaRoutes'); // El nombre de la ruta no esta escrito correctamente
 
 //Se carga el body.parser:
 app.use(bodyParser.urlencoded({ extend: false }));
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 
 
 mongoose.connect(url, {useNewUrlParser: true}).then(() =>{
-    console.log("Conexión a la BDD realizada con éxito!");
+    console.log("Conexión a la BD realizada con éxito!");
     app.listen(port, () => {
         console.log("Servidor ejecutándose en el puerto " + port);
     })
