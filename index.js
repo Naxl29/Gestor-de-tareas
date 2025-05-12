@@ -3,6 +3,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path'); // Sirve para manejar las rutas de forma segura 
+
 
 const app = express();
 const port = 3000;
@@ -10,7 +12,7 @@ const url = "mongodb+srv://nicolas:nicolas123@cluster0.2sexo24.mongodb.net/?retr
 //Configuración para evitrar fallos de conexión:
 mongoose.Promise = global.Promise;
 
-var tareaRoutes = require('./src/routes/tarea');
+var tareaRoutes = require('./src/Routes/tarea'); // El nombre de la ruta no esta escrito correctamente
 
 //Se carga el body.parser:
 app.use(bodyParser.urlencoded({ extend: false }));
@@ -27,8 +29,20 @@ app.use((req, res, next) =>{
     next();
 });
 
+
+// Esta linea se configura express.js para pocicionar el acceso a archivos estaticos
+app.use(express.static(path.join(__dirname, 'src', 'Public'))); // En este caso los archivos estaticos se encuentran en la carpeta Public, tales como la carpeta css, js y algunas imagenes
+
+
 //Se carga los archivos de ruta de la app
 app.use('/api', tareaRoutes);
+
+// Esta linea de codigo define la ruta especifica en el servidor node.js, cuand ose navega en la url localhost:3000/menu, se ejecuta la funcion dentro del archivo
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'src', 'Public' , 'index.html')); // En este caso se envia el archivo index.html que se encuentra en la carpeta Public
+});
+
+
 
 mongoose.connect(url, {useNewUrlParser: true}).then(() =>{
     console.log("Conexión a la BDD realizada con éxito!");
