@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 mongoose.connect(url, {useNewUrlParser: true}).then(() =>{
     console.log("Conexión a la BDD realizada con éxito!");
     app.listen(port, () => {
-        console.log("Servidor ejecutándose en el puerto " + port);
+        console.log("Servidor ejecutándose en http://localhost:3000 " );
     })
 })
 
