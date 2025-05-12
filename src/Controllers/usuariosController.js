@@ -25,3 +25,41 @@
             });
         });
     },
+    
+    // Método para actualizar un usuario
+    update: (req, res) => {
+        var usuarioId = req.params.id;
+        var params = req.body;
+        const name = params.name;
+        const email = params.email;
+
+        Usuario.findOneAndUpdate(
+            { _id: usuarioId },
+            { name: name, email: email },
+            { new: true },
+            (err, usuarioUpdated) => {
+                if (err) {
+                    return res.status(500).send({
+                        status: "error",
+                        message: "Error al actualizar!!"
+                    });
+                }
+
+                if (!usuarioUpdated) {
+                    return res.status(404).send({
+                        status: "error",
+                        message: "Error, no existe el usuario!!"
+                    });
+                }
+
+                // Si no hay ningún error obtenemos el usuario actualizado
+                return res.status(200).send({
+                    status: "success",
+                    usuario: usuarioUpdated
+                });
+            }
+        );
+    }
+};
+
+module.exports = controller;
