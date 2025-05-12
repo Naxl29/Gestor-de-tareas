@@ -5,7 +5,7 @@ const values = window.location.search;
 const urlParams = new URLSearchParams(values);
 //accedemos a los valores
 var id = urlParams.get("id");
-var titleParam = urlParams.gert("title");
+var titleParam = urlParams.get("title");
 var descriptionParam = urlParams.get("descripcion");
 
 const title = document.getElementById("title");
@@ -19,13 +19,13 @@ $(document).ready(function () {
     $("#alert-edit").hide();
 });
 
-$("#btn.alert-edit").click(function () {
+$("#btn-alert-edit").click(function () {
     $("#alert-edit").hide();
 });
 
 update.onclick = () => {
     const titleValue = title.value;
-    const descriptionValue = description.valiue;
+    const descriptionValue = description.value;
 
     if (titleValue === "" || descriptionValue === "") {
         $("#alert-edit").show();
