@@ -29,6 +29,8 @@ var controller = {
         }
     },
 
+    
+
     // Método para ver todos los usuarios
     getUsuarios: (req, res) => {
 
