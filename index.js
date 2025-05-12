@@ -10,7 +10,7 @@ const url = "mongodb+srv://nicolas:nicolas123@cluster0.2sexo24.mongodb.net/?retr
 //Configuración para evitrar fallos de conexión:
 mongoose.Promise = global.Promise;
 
-var tareaRoutes = require('./src/routes/tarea');
+var tareaRoutes = require('./src/Routes/tarea'); // El nombre de la ruta no esta escrito correctamente
 
 //Se carga el body.parser:
 app.use(bodyParser.urlencoded({ extend: false }));
