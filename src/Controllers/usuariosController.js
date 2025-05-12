@@ -59,6 +59,40 @@ var controller = {
         })
     },
 
+
+    getusuarioid: async (req, res) => {
+        const usuarioId = req.params.id;
+
+        //validar que el id sea valido
+        if (!require('mongoose').Types.ObjectId.isValid(usuarioId)) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'ID no válido'
+            });
+        }
+    
+        try {
+            const usuario = await Usuario.findById(usuarioId);
+
+            if (!usuario) {
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'Ususario no encontrado'
+                });
+            }
+        
+            return res.status(200).send({
+                status: 'success',
+                usuario
+            });
+        } catch (error) {
+            return res.status(500).send({
+                status: 'error',
+                message: 'Error al buscar el usuario',
+                error
+            });
+        }
+    },
     // Método para eliminar un usuario
     deleteUsuario: (req, res) => {
         var usuarioId = req.params.id;
