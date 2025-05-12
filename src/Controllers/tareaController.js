@@ -6,7 +6,7 @@ var Tarea = require('../Models/tarea');
 
 var controller = {
     //Método para guardar una tarea
-    save : async (req, res) => {
+    saveTarea: async (req, res) => {
         //Se obtienen los datos:
         var params = req.body;
         //Objeto para guardar
@@ -59,7 +59,7 @@ var controller = {
     },
 
     //Eliminar tarea:
-    delete : (req, res) =>{
+    deleteTarea: (req, res) =>{
         var tareaId = req.params.id;
         Tarea.findOneAndDelete({_id: tareaId}, (err, tareaRemoved) =>{
 
@@ -86,7 +86,7 @@ var controller = {
 
     },
 
-    update : (req, res) => {
+    updateTarea: (req, res) => {
         var tareaId = req.params.id;
         var params = req.body.params;
         const title = params.title;
