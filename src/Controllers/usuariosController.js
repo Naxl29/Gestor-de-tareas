@@ -1,7 +1,66 @@
+'use strict'
 
+var Usuario = require('../Models/usuarioModel');
+
+var controller = {
+
+    //Método para guardar un usuario
+    saveUsuario: async (req, res) => {
+        //Se obtienen los datos:
+        var params = req.body;
+        //Objeto para guardar
+        var usuario = new Usuario();
+        usuario.nombre = params.nombre;
+        usuario.email = params.email;
+        usuario.password = params.password
+
+        try {
+            const usuarioStored = await usuario.save();
+            return res.status(200).send({
+                status: 'success',
+                usuarioStored
+            });
+        } catch (err) {
+            return res.status(500).send({ 
+                status: "Error",
+                message: "Error al crear usuario",
+                error: err 
+            });
+        }
+    },
+
+    // Método para ver todos los usuarios
+    getUsuarios: (req, res) => {
+
+        var query = Usuario.find({});
+
+        query.exec((err, usuarios) =>{
+
+            if(err){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Error al extraer los datos'
+                })
+            }
+
+            //Si no existen usuarios:
+            if(!usuarios){
+                return resizeTo.status(404).send({
+                    status: 'Error',
+                    message: 'No hay usuarios para mostrar'
+                })
+            }
+
+            //Si se obtienen los usuarios:
+            return res.status(200).send({
+                status: 'success',
+                usuarios
+            })
+        })
+    },
 
     // Método para eliminar un usuario
-    delete: (req, res) => {
+    deleteUsuario: (req, res) => {
         var usuarioId = req.params.id;
         Usuario.findOneAndDelete({ _id: usuarioId }, (err, usuarioRemoved) => {
             if (err) {
@@ -27,7 +86,7 @@
     },
     
     // Método para actualizar un usuario
-    update: (req, res) => {
+    updateUsuario: (req, res) => {
         var usuarioId = req.params.id;
         var params = req.body;
         const name = params.name;
