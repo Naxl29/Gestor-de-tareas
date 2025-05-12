@@ -12,6 +12,10 @@ body {
   backdrop-filter: blur(10px); 
   font-size: 1.2em; 
  }
+ a {
+  text-decoration: none;
+  color: #2c3e50;
+ }
 
  .container {
   background-color: rgba(244, 244, 244, 0.8); 
