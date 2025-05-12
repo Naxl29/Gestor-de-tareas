@@ -537,3 +537,183 @@ nav {
     width: 1.8em; 
     height: 1.8em; 
 }
+
+
+
+
+
+.perfil-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    padding: 2.5em;
+    text-align: center;
+    position: relative;
+}
+
+.perfil-header {
+    margin-bottom: 1.5em;
+}
+
+.foto-container-desktop {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border: 3px solid #fff;
+    cursor: pointer; 
+    transition: transform 0.3s ease-in-out; 
+}
+
+.foto-container-desktop:hover {
+    transform: scale(1.05);
+}
+
+.foto-perfil-desktop {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.nombre-desktop {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.2em;
+}
+
+.rol-desktop {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 1em;
+}
+
+.perfil-body-desktop {
+    text-align: left;
+}
+
+.info-desktop p {
+    color: #555;
+    margin-bottom: 0.6em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.95em;
+}
+
+.info-desktop a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-desktop a:hover {
+    color: #2980b9;
+}
+
+.estadisticas-desktop {
+    margin-top: 1.5em;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+}
+
+.estadisticas-desktop h3 {
+    font-size: 1.1em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    text-align: center;
+}
+
+.estadisticas-desktop ul {
+    list-style: none;
+    padding: 0;
+}
+
+.estadisticas-desktop li {
+    color: #555;
+    margin-bottom: 0.4em;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    font-size: 0.9em;
+}
+
+.estadisticas-desktop i {
+    color: #2ecc71;
+}
+
+.cta-button-desktop {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.cta-button-desktop a {
+    display: inline-block;
+    background-color: #3b67a0;
+    color: #fff;
+    padding: 0.8em 1.5em;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+.cta-button-desktop a:hover {
+    background-color: #0e142e;
+    transform: scale(1.03);
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    object-fit: contain;
+    max-height: 90%; 
+}
+
+@keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
