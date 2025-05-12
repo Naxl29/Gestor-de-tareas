@@ -10,7 +10,7 @@ var controller = {
         var params = req.body;
         //Objeto para guardar
         var usuario = new Usuario();
-        usuario.nombre = params.nombre;
+        usuario.name = params.name;
         usuario.email = params.email;
         usuario.password = params.password
 

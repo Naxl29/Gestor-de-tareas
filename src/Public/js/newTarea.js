@@ -1,8 +1,6 @@
-const { $where } = require("../Models/tarea");
+const { $where } = require("../Models/tareaModel"); 
 
 const btn = document.getElementById('btn');
-
-
 
 $(document).ready(function(){    
     $('#alert').hide();
@@ -30,7 +28,7 @@ btn.onclick = () => {
 }
 
 async function postData(title, description) {
-    const response = await fetch('/api/save', {
+    const response = await fetch('/api/saveTarea', {
         method: 'POST',
         headers: {
             'accept': 'application/json',
