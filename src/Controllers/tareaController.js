@@ -1,6 +1,6 @@
 'use strict'
 
-var Tarea = require('../Models/tarea');
+var Tarea = require('../Models/tareaModels');
 
 //Objeto controller para disponer de todas las funciones de ruta
 
@@ -122,3 +122,4 @@ var controller = {
 }
 
 module.exports = controller;
+
