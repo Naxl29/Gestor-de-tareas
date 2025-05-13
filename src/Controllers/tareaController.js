@@ -10,7 +10,8 @@ var controller = {
         //Se obtienen los datos:
         var params = req.body;
         //Objeto para guardar
-        var tarea = new Tarea();
+        var tarea = new Tarea(); // Agregue el new para crear una nueva instancia de Tarea
+        //Se asignan los valores:
         tarea.title = params.title;
         tarea.description = params.description;
 
