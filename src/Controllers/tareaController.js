@@ -14,6 +14,7 @@ var controller = {
         //Se asignan los valores:
         tarea.title = params.title;
         tarea.description = params.description;
+        res.redirect('/tareas.html');
 
         try {
             const tareaStored = await tarea.save();
@@ -44,12 +45,12 @@ var controller = {
             }
 
             //Si no existen tareas:
-            if(!tareas){
-                return resizeTo.status(404).send({
+             if (!tareas || tareas.length === 0) {
+                return res.status(404).send({
                     status: 'Error',
                     message: 'No hay tareas para mostrar'
-                })
-            }
+            })
+        }
 
             //Si se obtienen las tareas:
             return res.status(200).send({

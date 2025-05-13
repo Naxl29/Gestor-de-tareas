@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea</title>
     <link rel="stylesheet" href="/css/main.css">
+    
 </head>
 
 <body>
@@ -33,12 +34,15 @@
             </form>
             <div class="notes-list-container">
                 <h2>Tareas</h2>
-                <div class="notes-list">
-                    <p class="empty-message">No existen Tareas que mostrar</p>
+                <div id="show-tareas" class="notes-list">
+                    <p id="message" class="empty-message">No existen Tareas que mostrar</p>
                 </div>
             </div>
         </main>
     </div>
+    <script src="getTareas.js"></script>
+   <script src="newTarea.js"></script>
+   
 </body>
 
 </html>

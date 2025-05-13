@@ -1,4 +1,4 @@
-const { $where } = require("../Models/usuarioModel"); 
+ const { $where } = require("../Models/usuarioModel"); 
 
 const btn = document.getElementById('btn');
 

@@ -13,6 +13,7 @@ var controller = {
         usuario.name = params.name;
         usuario.email = params.email;
         usuario.password = params.password
+        res.redirect('/tareas.html');
 
         try {
             const usuarioStored = await usuario.save();

@@ -4,30 +4,30 @@ async function getTareas() {
     console.log(data);
     const showTareas = document.getElementById("show-tareas");
 
-    if(data.notes.length == 0) {
+    if(data.tareas.length == 0) {
         $("#message").text("No hay tareas para mostrar");
 
     } else {
         $("#message").text("");
-        for (let i = 0; i < data.notes.length; i++) {
+        for (let i = 0; i < data.tareas.length; i++) {
 
-            const id = data.notes[i]._id;
+            const id = data.tareas[i]._id;
             const title = document.createElement("h5");
             const date = document.createElement("small");
             const description = document.createElement("p");
             const deleteButton = document.createElement("button");
             const showbutton = document.createElement("button");
             const editButton = document.createElement("button");
-            const note = document.createElement("div");
+            const tarea = document.createElement("div");
             const divbutton = document.createElement("div");
             const formbutton = document.createElement("form");
 
-            note.className = "card mb-3 px-2 py-2 card-note";
+            tarea.className = "card mb-3 px-2 py-2 card-tarea";
             divbutton.className = "d-flex flex-row-mt-2";
 
-            title.textContent = data.notes[i].title;
+            title.textContent = data.tareas[i].title;
 
-            date.textContent = data.notes[i].date.substring(8, 10) + data.notes[i].date.substring(4, 8) + data.notes[i].date.substring(0, 4);
+            date.textContent = data.tareas[i].date.substring(8, 10) + data.tareas[i].date.substring(4, 8) + data.tareas[i].date.substring(0, 4);
             date.className = "date";
 
             //caracteristicas de los botones del DOM
@@ -46,24 +46,24 @@ async function getTareas() {
             deleteButton.textContent = "Eliminar";
             deleteButton.type = "button";
 
-            description.textContent = data.notes[i].description;
+            description.textContent = data.tareas[i].description;
 
             //añadir los elementos al DOM
-            note.append(title);
-            note.append(date);
-            note.append(showbutton);
-            note.append(editButton);
-            note.append(deleteButton);
-            note.append(formbutton);
+            tarea.append(title);
+            tarea.append(date);
+            tarea.append(showbutton);
+            tarea.append(editButton);
+            tarea.append(deleteButton);
+            tarea.append(formbutton);
 
-            note.append(divbutton);
-            showTareas.append(note);
+            tarea.append(divbutton);
+            showTareas.append(tarea);
 
             //boton mostrar modal
             showbutton.onclick = () => {
 
                 $("#myModal").modal("show");
-                $("#modal-title").text(data.notes[i].title);
+                $("#modal-title").text(data.tareas[i].title);
                 $("#content-body").html(description);
 
         }
@@ -71,14 +71,14 @@ async function getTareas() {
         //boton de eliminar
         deleteButton.onclick = () => {
           console.log(id);
-          deleNote(id);
+          deletarea(id);
                 
         }
 
         //boton de editar
         editButton.onclick = () => {
-            const title = data.notes[i].title;
-            const description = data.notes[i].description;
+            const title = data.tareas[i].title;
+            const description = data.tareas[i].description;
             window.location.href = "edit.html?id=" + id + "&title=" + title + "&description=" + description;
         }
     }
@@ -86,7 +86,7 @@ async function getTareas() {
 }  
 
 // funcion para eliminar la tarea
-async function deleNote(id) {
+async function deletarea(id) {
    await fetch("/api/delete/" + id, {
         method: "DELETE",
    }).then(res => res.text()).then(res => console.log(res));
