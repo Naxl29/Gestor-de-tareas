@@ -10,9 +10,7 @@ var controller = {
         //Se obtienen los datos:
         var params = req.body;
         //Objeto para guardar
-        var tarea = new Tarea();
-        tarea.title = params.title;
-        tarea.description = params.description;
+        var tarea = new Tarea(params); // Agregue el new para crear una nueva instancia de Tarea
 
         try {
             const tareaStored = await tarea.save();

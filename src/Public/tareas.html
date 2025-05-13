@@ -19,18 +19,18 @@
             </div>
         </header>
         <main>
-            <div class="new-note-container">
+            <form class="new-note-container" action="/api/saveTarea" method="post">  <!-- Agregue la ruta para manejar los registros de las nueva tareas -->
                 <h2>Nueva tarea</h2>
                 <div class="input-group">
                     <label for="title">Título</label>
-                    <input type="text" id="title" placeholder="Título de la tarea">
+                    <input type="text" id="title" name="title" placeholder="Título de la tarea">
                 </div>
                 <div class="input-group">
                     <label for="description">Contenido de la tarea</label>
-                    <textarea id="description" placeholder="Escribe el contenido de tu tarea"></textarea>
+                    <textarea id="description" name="description" placeholder="Escribe el contenido de tu tarea"></textarea>
                 </div>
                 <input type="submit" class="button" value="GUARDAR">
-            </div>
+            </form>
             <div class="notes-list-container">
                 <h2>Tareas</h2>
                 <div class="notes-list">
