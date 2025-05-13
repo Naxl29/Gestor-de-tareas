@@ -6,7 +6,7 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
-<body> 
+<body>
     <div class="wrapper">
         <div class="card-switch">
             <label class="switch">
@@ -14,26 +14,26 @@
                <span class="slider"></span>
                <span class="card-side"></span>
                <div class="flip-card__inner">
-                  <div class="flip-card__front">
-                     <div class="title">INICIAR SESION</div>
-                     <form class="flip-card__form" action="">
-                        <input class="flip-card__input" name="email" placeholder="Email" type="email">
-                        <input class="flip-card__input" name="password" placeholder="Password" type="password">
-                        <button class="flip-card__btn"><a href="tareas.html">INICIAR</a></button>
-                     </form>
-                  </div>
-                  <div class="flip-card__back">
-                     <div class="title">REGISTRATE</div>
-                     <form class="flip-card__form" action="">
-                        <input class="flip-card__input" placeholder="Name" type="name">
-                        <input class="flip-card__input" name="email" placeholder="Email" type="email">
-                        <input class="flip-card__input" name="password" placeholder="Password" type="password">
-                        <button class="flip-card__btn"><a href="tareas.html">REGISTRAR</a></button>
-                     </form>
-                  </div>
+                    <div class="flip-card__front">
+                        <div class="title">INICIAR SESION</div>
+                        <form class="flip-card__form" action="/login" method="POST">
+                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
+                            <input class="flip-card__input" name="password" placeholder="Password" type="password">
+                            <button type="submit" class="flip-card__btn">INICIAR</button>
+                        </form>
+                    </div>
+                    <div class="flip-card__back">
+                        <div class="title">REGISTRATE</div>
+                        <form class="flip-card__form" action="/register" method="POST">
+                            <input class="flip-card__input" name="name" placeholder="Name" type="text">
+                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
+                            <input class="flip-card__input" name="password" placeholder="Password" type="password">
+                            <button type="submit" class="flip-card__btn">REGISTRAR</button>
+                        </form>
+                    </div>
                </div>
             </label>
-        </div>   
-   </div>
+        </div>
+    </div>
 </body>
 </html>
