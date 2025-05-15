@@ -8,6 +8,8 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// Importar rutas de usuario y tarea
+const usuarioRoutes = require('./src/routes/usuarioRoutes');
 const tareaRoutes = require('./src/routes/tareaRoutes');
 
 // Middleware
@@ -26,8 +28,11 @@ app.use((req, res, next) => {
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, 'src', 'Public')));
 
-// Rutas
+// Rutas de tarea
 app.use('/api', tareaRoutes);
+
+// Rutas de usuario
+app.use('/api', usuarioRoutes);
 
 // Ruta base
 app.get('/', (req, res) => {
