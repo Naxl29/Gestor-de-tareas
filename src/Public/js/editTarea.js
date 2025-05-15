@@ -1,19 +1,12 @@
 const update = document.getElementById("update");
-//obtenemos los parametros enviados por la url
+// Obtenemos los parámetros enviados por la URL
 const values = window.location.search;
-// creamos las instancia
+// Creamos la instancia
 const urlParams = new URLSearchParams(values);
-//accedemos a los valores
-var id = urlParams.get("id");
-var titleParam = urlParams.get("title");
-var descriptionParam = urlParams.get("descripcion");
 
-const title = document.getElementById("title");
-const description = document.getElementById("description");
-
-//asignamos los valores 
-title.value = titleParam;
-description.textContent = descriptionParam;
+// Asignamos los valores directamente
+document.getElementById("title").value = urlParams.get("title");
+document.getElementById("description").value = urlParams.get("descripcion");
 
 $(document).ready(function () {
     $("#alert-edit").hide();
@@ -24,30 +17,43 @@ $("#btn-alert-edit").click(function () {
 });
 
 update.onclick = () => {
-    const titleValue = title.value;
-    const descriptionValue = description.value;
+    const titleValue = document.getElementById("title").value;
+    const descriptionValue = document.getElementById("description").value;
 
     if (titleValue === "" || descriptionValue === "") {
         $("#alert-edit").show();
-    }else {
-        updateData(id, titleValue, descriptionValue);
-        window.location.href = "/";
+    } else {
+        updateData(urlParams.get("id"), titleValue, descriptionValue);
     }
-}   
-//funcion para actualizar la tarea
-async function updateData(id, title, description) {
-    const response = await fetch("/api/tareas/" + id, {
-        method: "PUT",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            title,
-            description,
-        }),
-    });
+}
 
-    const data = await response.json();
-    console.log (data);
+// Función para actualizar la tarea
+async function updateData(id, title, description) {
+    try {
+        const response = await fetch("/api/tareas/" + id, {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title,
+                description,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log(data);
+            window.location.href = "/"; // Redirige solo si la respuesta es exitosa
+        } else {
+            $("#alert-edit").show();
+            $("#title-alert").text("Hubo un error al actualizar la tarea.");
+        }
+    } catch (error) {
+        $("#alert-edit").show();
+        $("#title-alert").text("Error en la conexión con el servidor.");
+        console.error("Error:", error);
+    }
 }

@@ -1,6 +1,8 @@
 'use strict'
 
-var Usuario = require('../Models/usuarioModel');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Usuario = require('../Models/usuarioModel');
 
 var controller = {
 
@@ -12,8 +14,7 @@ var controller = {
         var usuario = new Usuario();
         usuario.name = params.name;
         usuario.email = params.email;
-        usuario.password = params.password
-        res.redirect('/tareas.html');
+        usuario.password = await bcrypt.hash(params.password, 10);
 
         try {
             const usuarioStored = await usuario.save();
@@ -29,8 +30,43 @@ var controller = {
             });
         }
     },
-
     
+    login: async (req, res) => {
+        try {
+            const { email, password } = req.body;
+
+            // Buscar al usuario en la base de datos
+            const user = await Usuario.findOne({ email });
+
+            if (!user) {
+            return res.status(401).send({
+                status: "error",
+                message: "Usuario no encontrado",
+            });
+            }
+
+            // Verificar la contraseña
+            const isValidPassword = await bcrypt.compare(password, user.password);
+
+            if (!isValidPassword) {
+            return res.status(401).send({
+                status: "error",
+                message: "Contraseña incorrecta",
+            });
+            }
+
+            // Si las credenciales son válidas, devolver un mensaje de éxito
+            res.status(200).send({
+            status: "success",
+            message: "Inicio de sesión exitoso",
+            });
+        } catch (error) {
+            res.status(500).send({
+            status: "error",
+            message: "Error al iniciar sesión",
+            });
+        }
+    },
 
     // Método para ver todos los usuarios
     getUsuarios: (req, res) => {
@@ -48,9 +84,9 @@ var controller = {
 
             //Si no existen usuarios:
             if(!usuarios){
-                return resizeTo.status(404).send({
+                return res.status(404).send({
                     status: 'Error',
-                    message: 'No hay usuarios para mostrar'
+                    message
                 })
             }
 
