@@ -14,7 +14,6 @@ var controller = {
         //Se asignan los valores:
         tarea.title = params.title;
         tarea.description = params.description;
-        res.redirect('/tareas.html');
 
         try {
             const tareaStored = await tarea.save();

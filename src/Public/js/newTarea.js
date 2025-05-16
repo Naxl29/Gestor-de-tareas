@@ -37,7 +37,7 @@ async function postData(title, description) {
         console.log(data);
 
         if (data.status === 'success') {
-            window.location.href = '/'; // o redirige a la lista de tareas
+            window.location.href = 'tareas.html'; // o redirige a la lista de tareas
         }
 
     } catch (error) {

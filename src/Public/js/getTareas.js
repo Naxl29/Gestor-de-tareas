@@ -5,72 +5,79 @@ async function getTareas() {
         console.log(data);
         const showTareas = document.getElementById("show-tareas");
 
-        if (data.tareas.length == 0) {
+        if (!data.tareas || data.tareas.length === 0) {
             $("#message").text("No hay tareas para mostrar");
         } else {
             $("#message").text("");
             showTareas.innerHTML = "";
+
             data.tareas.forEach((tarea, index) => {
                 const id = tarea._id;
                 const title = document.createElement("h5");
                 const date = document.createElement("small");
                 const description = document.createElement("p");
                 const deleteButton = document.createElement("button");
-                const showbutton = document.createElement("button");
+                const showButton = document.createElement("button");
                 const editButton = document.createElement("button");
                 const tareaDiv = document.createElement("div");
-                const divbutton = document.createElement("div");
+                const divButton = document.createElement("div");
 
                 tareaDiv.className = "card mb-3 px-2 py-2 card-tarea";
-                divbutton.className = "d-flex flex-row-mt-2";
+                divButton.className = "d-flex gap-2 mt-2";
 
-                title.textContent = tarea.title;
-                date.textContent = new Date(tarea.date).toLocaleDateString();
-                date.className = "date";
+                title.textContent = `Título: ${tarea.title}`;
+                description.textContent = `Descripción: ${tarea.description}`;
 
-                showbutton.className = "btn btn-primary btn-sm";
-                showbutton.id = "show" + index;
-                showbutton.textContent = "Mostrar";
-                showbutton.type = "button";
-                showbutton.onclick = () => {
-                    $("#myModal").modal("show");
-                    $("#modal-title").text(tarea.title);
-                    $("#content-body").html(description);
-                }
+                showButton.className = "btn btn-primary btn-sm";
+                showButton.id = "show" + index;
+                showButton.textContent = "Mostrar";
+                showButton.type = "button";
+                 showButton.onclick = () => {
+                    $("#content-title").text(`Título: ${tarea.title}`);
+                    $("#content-description").text(`Descripción: ${tarea.description}`);
+                    const fecha = new Date(tarea.date);
+                    $("#content-date").text(`Fecha: ${fecha.toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}`);
 
-                editButton.className = "btn btn-success btn-sm mx-3";
+                    // ✅ Mostrar el modal correctamente
+                    const modal = new bootstrap.Modal(document.getElementById('myModal'));
+                    modal.show();
+                };
+
+
+
+                editButton.className = "btn btn-success btn-sm mx-2";
                 editButton.id = "edit" + index;
                 editButton.textContent = "Editar";
                 editButton.type = "button";
                 editButton.onclick = () => {
-                    window.location.href = "edit.html?id=" + id + "&title=" + tarea.title + "&description=" + tarea.description;
-                }
+                    window.location.href = `edit.html?id=${id}&title=${encodeURIComponent(tarea.title)}&description=${encodeURIComponent(tarea.description)}`;
+                };
 
                 deleteButton.className = "btn btn-danger btn-sm";
                 deleteButton.id = "delete" + index;
                 deleteButton.textContent = "Eliminar";
                 deleteButton.type = "button";
                 deleteButton.onclick = () => {
-                    deleteTarea(id);
-                }
+                    confirmDelete(id);
+                };
 
-                description.textContent = tarea.description;
-
-                tareaDiv.append(title);
-                tareaDiv.append(date);
-                tareaDiv.append(showbutton);
-                tareaDiv.append(editButton);
-                tareaDiv.append(deleteButton);
+                divButton.append(showButton, editButton, deleteButton);
+                tareaDiv.append(title, date, description, divButton);
                 showTareas.append(tareaDiv);
             });
         }
     } catch (error) {
-        console.error(error);
+        console.error("Error al obtener las tareas:", error);
+        $("#message").text("Error al cargar tareas.");
     }
 }
 
 // Función que muestra los mensajes para confirmar la eliminación de una tarea
-function comfirmDelete(id) {
+function confirmDelete(id) {
     Swal.fire({
         title: '¿Estás seguro?',
         text: 'Esta acción eliminará la tarea',
@@ -87,30 +94,28 @@ function comfirmDelete(id) {
     });
 }
 
-// Función para enviar la solicitud DELETE al codigo 
+// Función para enviar la solicitud DELETE
 async function deleteTarea(id) {
-
-    const response = await fetch(`/api/delete/${id}`, {
-        method: 'DELETE',
-    });
-
-    // Se muestra mensaje de exito al eliminar la tarea
-    if (response.ok) {
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'success',
-            title: 'Tarea eliminada correctamente',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
+    try {
+        const response = await fetch(`/api/delete/${id}`, {
+            method: 'DELETE',
         });
 
-        // Actualizar lista de tareas 
-        if (typeof getTareas === 'function') {
-            getTareas();
+        if (response.ok) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Tarea eliminada correctamente',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+            });
+            getTareas(); // Recargar lista
+        } else {
+            throw new Error("Error en la respuesta del servidor");
         }
-    } else {
+    } catch (error) {
         Swal.fire({
             toast: true,
             position: 'top-end',
@@ -120,6 +125,7 @@ async function deleteTarea(id) {
             timer: 2000,
             timerProgressBar: true,
         });
+        console.error("Error al eliminar tarea:", error);
     }
 }
 

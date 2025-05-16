@@ -1,4 +1,4 @@
-const update = document.getElementById("update");
+const update = document.getElementById('btnEdit');
 // Obtenemos los parámetros enviados por la URL
 const values = window.location.search;
 // Creamos la instancia
@@ -21,7 +21,7 @@ update.onclick = () => {
     const descriptionValue = document.getElementById("description").value;
 
     if (titleValue === "" || descriptionValue === "") {
-        $("#alert-edit").show();
+        $("#alert-edit").show()  ;
     } else {
         updateData(urlParams.get("id"), titleValue, descriptionValue);
     }
