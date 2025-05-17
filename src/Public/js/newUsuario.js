@@ -68,7 +68,7 @@ async function registrarUsuario(name, email, password) {
             document.getElementById('password').value = '';
 
             setTimeout(() => {
-                window.location.href = '/login';
+                window.location.href = 'tareas.html';
             }, 2000);
         } else {
             Swal.fire({

@@ -10,30 +10,43 @@
     <div class="wrapper">
         <div class="card-switch">
             <label class="switch">
-               <input type="checkbox" class="toggle">
-               <span class="slider"></span>
-               <span class="card-side"></span>
-               <div class="flip-card__inner">
+                <input type="checkbox" class="toggle">
+                <span class="slider"></span>
+                <span class="card-side"></span>
+                <div class="flip-card__inner">
                     <div class="flip-card__front">
-                        <div class="title">INICIAR SESION</div>
-                        <form class="flip-card__form" action="/api/login" method="POST">
-                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
+                        <div class="title">INICIAR SESIÓN</div>
+                        
+                        <!-- Formulario de login -->
+                        <form id="loginForm" class="flip-card__form">
+                            <input class="flip-card__input" name="email" placeholder="Email" type="email" >
                             <input class="flip-card__input" name="password" placeholder="Password" type="password">
                             <button type="submit" class="flip-card__btn">INICIAR</button>
                         </form>
                     </div>
-                    <div class="flip-card__back">
-                        <div class="title">REGISTRATE</div>
-                        <form class="flip-card__form" action="/api/saveUsuario" method="POST">
-                            <input class="flip-card__input" name="name" placeholder="Name" type="text">
-                            <input class="flip-card__input" name="email" placeholder="Email" type="email">
-                            <input class="flip-card__input" name="password" placeholder="Password" type="password">
-                            <button type="submit" class="flip-card__btn">REGISTRAR</button>
-                        </form>
-                    </div>
-               </div>
+                </div>
             </label>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/js/login.js"></script>
+
+    <!-- Script para el botón toggle -->
+    <script>
+        const toggle = document.querySelector('.toggle');
+        let timeout;
+
+        toggle.addEventListener('change', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                if (toggle.checked) {
+                    window.location.href = 'register.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            }, 200); // Espera 200ms antes de redirigir
+        });
+    </script>
 </body>
 </html>

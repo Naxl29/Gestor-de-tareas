@@ -39,6 +39,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'Public', 'index.html'));
 });
 
+// Ruta para la página de tareas despues de iniciar sesión
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'Public', 'login.html'));
+});
+
 // Iniciar servidor (ya conectado mongoose desde conexion.js)
 app.listen(port, () => {
     console.log("Servidor ejecutándose en http://localhost:" + port);
