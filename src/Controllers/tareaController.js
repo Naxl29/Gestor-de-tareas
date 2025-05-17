@@ -16,13 +16,14 @@ var controller = {
         tarea.description = params.description;
 
         try {
-            const tareaStored = await tarea.save();
+
+            const tareaStored = await tarea.save(); // Guarda la tarea en la base de datos
             return res.status(200).send({
                 status: 'success',
                 tareaStored 
             });
         } catch (err) {
-            return res.status(500).send({ 
+            return res.status(500).send({  // Error al guardar
                 status: "Error",
                 message: "Error al guardar la tarea",
                 error: err 
@@ -30,16 +31,16 @@ var controller = {
         }
     },
 
-    getTareas: async (req, res) => {
+    getTareas: async (req, res) => { // Método para obtener todas las tareas
         try {
-            const tareas = await Tarea.find().sort('-date');
-            if (!tareas || tareas.length === 0) {
+            const tareas = await Tarea.find().sort('-date'); // Ordenar por fecha descendente
+            if (!tareas || tareas.length === 0) { // Si no hay tareas
                 return res.status(404).send({
                     status: 'Error',
                     message: 'No hay tareas para mostrar'
                 })
             }
-            return res.status(200).send({
+            return res.status(200).send({ // Si hay tareas
                 status: 'success',
                 tareas
             })
@@ -52,17 +53,17 @@ var controller = {
     },
 
     //Eliminar tarea:
-    deleteTarea: async (req, res) =>{
+    deleteTarea: async (req, res) =>{ 
         var tareaId = req.params.id;
         try {
-            const tareaRemoved = await Tarea.findOneAndDelete({_id: tareaId});
-            if (!tareaRemoved) {
+            const tareaRemoved = await Tarea.findOneAndDelete({_id: tareaId}); // Eliminar la tarea
+            if (!tareaRemoved) { // Si no se encuentra la tarea
                 return res.status(404).send({
                     status: 'Error',
                     message: 'No se ha encontrado la tarea'
                 })
             }
-            return res.status(200).send({
+            return res.status(200).send({ 
                 status: 'success',
                 tarea: tareaRemoved
             })
@@ -74,14 +75,14 @@ var controller = {
         }
     },
 
-    updateTarea: async (req, res) => {
+    updateTarea: async (req, res) => { // Método para actualizar una tarea
         var tareaId = req.params.id;
         var params = req.body.params;
         const title = params.title;
         const description = params.description;
 
         try {
-            const tareaUpdated = await Tarea.findOneAndUpdate(
+            const tareaUpdated = await Tarea.findOneAndUpdate( // Buscar y actualizar la tarea
                 { _id: tareaId },
                 { title: title, description: description },
                 { new: true }

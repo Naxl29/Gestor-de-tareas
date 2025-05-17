@@ -1,59 +1,84 @@
-const update = document.getElementById('btnEdit');
-// Obtenemos los parámetros enviados por la URL
-const values = window.location.search;
-// Creamos la instancia
-const urlParams = new URLSearchParams(values);
+// Extraer parámetros de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+const titleValue = urlParams.get("title");
+const descriptionValue = urlParams.get("description");
 
-// Asignamos los valores directamente
-document.getElementById("title").value = urlParams.get("title");
-document.getElementById("description").value = urlParams.get("descripcion");
+// Referencias a los elementos del DOM
+const titleInput = document.getElementById("title");
+const descriptionInput = document.getElementById("description");
+const updateButton = document.getElementById("btnEdit");
 
-$(document).ready(function () {
-    $("#alert-edit").hide();
-});
-
-$("#btn-alert-edit").click(function () {
-    $("#alert-edit").hide();
-});
-
-update.onclick = () => {
-    const titleValue = document.getElementById("title").value;
-    const descriptionValue = document.getElementById("description").value;
-
-    if (titleValue === "" || descriptionValue === "") {
-        $("#alert-edit").show()  ;
-    } else {
-        updateData(urlParams.get("id"), titleValue, descriptionValue);
-    }
+// Verificar si el ID de tarea está 
+if (!id) {
+    Swal.fire({
+        icon: "error",
+        title: "ID de tarea no encontrado",
+        text: "Regresa a la lista y vuelve a intentar.",
+    });
+    throw new Error("ID de tarea no encontrado en la URL");
 }
+
+// se hace un preRelleno con los campos con los valores de la URL
+titleInput.value = titleValue || "";
+descriptionInput.value = descriptionValue || "";
 
 // Función para actualizar la tarea
 async function updateData(id, title, description) {
     try {
-        const response = await fetch("/api/tareas/" + id, {
+        console.log("/api/updateTarea/" + id);
+        const response = await fetch("/api/updateTarea/" + id,  {
             method: "PUT",
             headers: {
-                "Accept": "application/json",
                 "Content-Type": "application/json",
+                "Accept": "application/json",
             },
-            body: JSON.stringify({
-                title,
-                description,
-            }),
+            body: JSON.stringify({ title, description }),
         });
+
+        if (!response.ok) {
+            throw new Error("Error al actualizar la tarea");
+        }
 
         const data = await response.json();
 
-        if (response.ok) {
-            console.log(data);
-            window.location.href = "/"; // Redirige solo si la respuesta es exitosa
-        } else {
-            $("#alert-edit").show();
-            $("#title-alert").text("Hubo un error al actualizar la tarea.");
-        }
+        // Éxito al actualizar tareas
+        Swal.fire({
+            icon: "success",
+            title: "Tarea actualizada correctamente",
+            showConfirmButton: false,
+            timer: 2000
+        }).then(() => {
+            window.location.href = "tareas.html";
+        });
+
     } catch (error) {
-        $("#alert-edit").show();
-        $("#title-alert").text("Error en la conexión con el servidor.");
         console.error("Error:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Error en la conexión con el servidor",
+            text: error.message,
+        });
     }
 }
+
+// Evento del botón ACTUALIZAR
+updateButton.addEventListener("click", function (event) {
+    event.preventDefault(); // Evita que el formulario se recargue
+
+    const title = titleInput.value.trim();
+    const description = descriptionInput.value.trim();
+
+    if (!title || !description) {
+        // Alerta si hay campos vacíos
+        Swal.fire({
+            icon: "error",
+            title: "¡ATENCIÓN!",
+            text: "No puedes dejar espacios en blanco.",
+        });
+        return;
+    }
+
+    // Ejecutar la actualización
+    updateData(id, title, description);
+});

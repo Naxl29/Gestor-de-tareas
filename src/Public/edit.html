@@ -10,15 +10,9 @@
 </head>
 <body>
 
-      <!--ALERTA OCULTA-->
-    <div id="alert-edit" class="alert alert-danger alewrt-dismissible fade show mt-3 mb-3 mx-auto" role="alert">
-        <stroid id="tilte-alert"> ¡ATENCIÓN!</strong> No puedes dejar espacios en blanco. </stroid>
-        <button id= "btn-alert-edit" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
         <div class="container">
         <header>
-            <h1>TAREAS</h1>
+            <h1>EDITAR TAREA</h1>
             <div class="profile-container">
                 <div class="profile-image">
                     <a href="detalles.html"><img src="7979904.jpg" alt="Perfil"></a>
@@ -27,7 +21,7 @@
             </div>
         </header>
         <main>
-            <form class="new-note-container" action="/api/saveTarea" method="post">  <!-- Agregue la ruta para manejar los registros de las nueva tareas -->
+            <form>  
                 <h2>Nueva tarea</h2>
                 <div class="input-group">
                     <label for="title">Título</label>
@@ -37,12 +31,17 @@
                     <label for="description">Contenido de la tarea</label>
                     <textarea id="description" name="description" placeholder="Escribe el contenido de tu tarea"></textarea>
                 </div>
-                <input type="submit" class="button" id="btnEdit" value="ACTUALIZAR">
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-primary" id="btnEdit">ACTUALIZAR</button>
+                    <a href="tareas.html" class="btn btn-secondary">CANCELAR</a>
+                </div>
+
             </form>
         </main>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/editTarea.js"></script>
 </body>
 </html>
