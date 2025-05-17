@@ -1,45 +1,44 @@
-const { $where } = require("../Models/usuarioModel"); 
+const btn = document.getElementById('btnRegistro');
 
-const btn = document.getElementById('btn');
-
-$(document).ready(function(){    
-    $('#alert-usuario').hide();
-});
-
-$('#btn-alert-usuario').click(function(){
-    $('#alert-usuario').hide();
-}); 
-
-btnRegistro.onclick = () => {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
+btn.onclick = () => {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
 
     // Validación de campos vacíos
     if (name === '' || email === '' || password === '') {
-        $('#alert-usuario').show();
-        $('#alert-usuario').html('Todos los campos son obligatorios');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos vacíos',
+            text: 'Todos los campos son obligatorios'
+        });
         return;
     }
 
     // Validación formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        $('#alert-usuario').show();
-        $('#alert-usuario').html('Por favor, introduce un email válido');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Email inválido',
+            text: 'Por favor, introduce un email válido'
+        });
         return;
     }
 
     // Validar longitud mínima de contraseña
     if (password.length < 8) {
-        $('#alert-usuario').show();
-        $('#alert-usuario').html('La contraseña debe tener al menos 8 caracteres');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Contraseña corta',
+            text: 'La contraseña debe tener al menos 8 caracteres'
+        });
         return;
     }
-    
+
     // Si pasa todas las validaciones, guardar datos en la BD
     registrarUsuario(name, email, password);
-}
+};
 
 async function registrarUsuario(name, email, password) {
     try {
@@ -49,22 +48,21 @@ async function registrarUsuario(name, email, password) {
                 'accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password
-            })
+            body: JSON.stringify({ name, email, password })
         });
 
         const data = await response.json();
-        
+
         if (data.status === 'success') {
-            // Mostrar mensaje de éxito
-            $('#alert-usuario').removeClass('alert-danger').addClass('alert-success');
-            $('#alert-usuario').html('Usuario registrado correctamente');
-            $('#alert-usuario').show();
-            
-            // Limpiar el formulario
+            Swal.fire({
+                icon: 'success',
+                title: '¡Registro exitoso!',
+                text: 'Usuario registrado correctamente',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            // Limpiar formulario
             document.getElementById('name').value = '';
             document.getElementById('email').value = '';
             document.getElementById('password').value = '';
@@ -73,15 +71,19 @@ async function registrarUsuario(name, email, password) {
                 window.location.href = '/login';
             }, 2000);
         } else {
-            // Mostrar mensaje de error
-            $('#alert-usuario').removeClass('alert-success').addClass('alert-danger');
-            $('#alert-usuario').html(data.message || 'Error al registrar usuario');
-            $('#alert-usuario').show();
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message || 'Error al registrar usuario'
+            });
         }
+
     } catch (error) {
         console.error('Error:', error);
-        $('#alert-usuario').removeClass('alert-success').addClass('alert-danger');
-        $('#alert-usuario').html('Error de conexión');
-        $('#alert-usuario').show();
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: 'No se pudo conectar con el servidor'
+        });
     }
 }

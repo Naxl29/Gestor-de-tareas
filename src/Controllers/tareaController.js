@@ -16,14 +16,13 @@ var controller = {
         tarea.description = params.description;
 
         try {
-
-            const tareaStored = await tarea.save(); // Guarda la tarea en la base de datos
-            return res.status(200).send({
+            const tareaStored = await tarea.save(); // Guardar en la base de datos
+            return res.status(200).send({ // Enviar respuesta
                 status: 'success',
                 tareaStored 
             });
         } catch (err) {
-            return res.status(500).send({  // Error al guardar
+            return res.status(500).send({  // En caso de error
                 status: "Error",
                 message: "Error al guardar la tarea",
                 error: err 
@@ -31,17 +30,17 @@ var controller = {
         }
     },
 
-    getTareas: async (req, res) => { // Método para obtener todas las tareas
+    getTareas: async (req, res) => {
         try {
-            const tareas = await Tarea.find().sort('-date'); // Ordenar por fecha descendente
-            if (!tareas || tareas.length === 0) { // Si no hay tareas
+            const tareas = await Tarea.find().sort('-date'); // Obtener todas las tareas ordenadas por fecha
+            if (!tareas || tareas.length === 0) { // No hay tareas
                 return res.status(404).send({
                     status: 'Error',
                     message: 'No hay tareas para mostrar'
                 })
             }
-            return res.status(200).send({ // Si hay tareas
-                status: 'success',
+            return res.status(200).send({ // Enviar respuesta
+                status: 'success', // En caso de éxito
                 tareas
             })
         } catch (err) {
@@ -52,43 +51,42 @@ var controller = {
         }
     },
 
-    //Eliminar tarea:
-    deleteTarea: async (req, res) =>{ 
-        var tareaId = req.params.id;
-        try {
-            const tareaRemoved = await Tarea.findOneAndDelete({_id: tareaId}); // Eliminar la tarea
-            if (!tareaRemoved) { // Si no se encuentra la tarea
-                return res.status(404).send({
+        //Eliminar tarea:
+        deleteTarea: async (req, res) =>{
+            var tareaId = req.params.id;
+            try {
+                const tareaRemoved = await Tarea.findOneAndDelete({_id: tareaId}); // Eliminar tarea por ID
+                if (!tareaRemoved) {
+                    return res.status(404).send({
+                        status: 'Error',
+                        message: 'No se ha encontrado la tarea'
+                    })
+                }
+                return res.status(200).send({ // Enviar respuesta
+                    status: 'success', // En caso de éxito
+                    tarea: tareaRemoved
+                })
+            } catch (err) {
+                return res.status(500).send({
                     status: 'Error',
-                    message: 'No se ha encontrado la tarea'
+                    message: 'Error al eliminar'
                 })
             }
-            return res.status(200).send({ 
-                status: 'success',
-                tarea: tareaRemoved
-            })
-        } catch (err) {
-            return res.status(500).send({
-                status: 'Error',
-                message: 'Error al eliminar'
-            })
-        }
-    },
+        },
 
-    updateTarea: async (req, res) => { // Método para actualizar una tarea
+        //Actualizar tareas
+        updateTarea: async (req, res) => {
         var tareaId = req.params.id;
-        var params = req.body.params;
-        const title = params.title;
-        const description = params.description;
+        const { title, description } = req.body;  // Aquí corregi, no estaba tomando los campos
 
         try {
-            const tareaUpdated = await Tarea.findOneAndUpdate( // Buscar y actualizar la tarea
+            const tareaUpdated = await Tarea.findOneAndUpdate( 
                 { _id: tareaId },
                 { title: title, description: description },
                 { new: true }
             );
             if (!tareaUpdated) {
-                return res.status(404).send({
+                return res.status(404).send({ // No se encontró la tarea
                     status: "error",
                     message: "Error, no existe la tarea!!"
                 });
@@ -98,12 +96,14 @@ var controller = {
                 tarea: tareaUpdated
             });
         } catch (err) {
+            console.error("Error en updateTarea:", err); // Para depurar mejor
             return res.status(500).send({
                 status: "error",
                 message: "Error al actualizar!!"
             });
         }
     }
+
 }
 
 module.exports = controller;
