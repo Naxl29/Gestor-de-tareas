@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('./src/database/conexion');
 const path = require('path');
 
 const app = express();
