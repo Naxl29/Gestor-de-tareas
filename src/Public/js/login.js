@@ -26,6 +26,9 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         const data = await response.json();
 
         if (response.status === 200 && data.status === "success") {
+            
+            localStorage.setItem('token', data.token); // Guardar el token en localStorage
+
             Swal.fire({
                 icon: "success",
                 title: "¡Bienvenido!",

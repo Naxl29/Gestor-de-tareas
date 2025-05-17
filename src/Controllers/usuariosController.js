@@ -55,11 +55,20 @@ var controller = {
             });
             }
 
+             // Generar token
+            const token = jwt.sign(
+                { userId: user._id, email: user.email },
+                'clave_secreta_segura', // Cámbiala por una más segura
+                { expiresIn: '1h' }
+            );
+
             // Si las credenciales son válidas, devolver un mensaje de éxito
             res.status(200).send({
             status: "success",
             message: "Inicio de sesión exitoso",
+            token: token
             });
+            
         } catch (error) {
             res.status(500).send({
             status: "error",
@@ -67,6 +76,21 @@ var controller = {
             });
         }
     },
+
+    cerrarSesion: (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).send({ 
+                    status: 'Error',
+                    message: 'No se pudo cerrar sesión' });
+            }
+            res.clearCookie('connect.sid'); // Opcional: limpia la cookie
+            res.status(200).send({ 
+                status: 'success', 
+                message: 'Sesión cerrada' });
+        });
+    },
+
 
     // Método para ver todos los usuarios
     getUsuarios: (req, res) => {
