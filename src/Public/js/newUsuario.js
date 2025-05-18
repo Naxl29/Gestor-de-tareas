@@ -36,13 +36,13 @@ btn.onclick = () => {
         return;
     }
 
-    // Si pasa todas las validaciones, guardar datos en la BD
+    // Si pasa todas las validaciones del frontend, intentar registrar el usuario
     registrarUsuario(name, email, password);
 };
 
 async function registrarUsuario(name, email, password) {
     try {
-        const response = await fetch('/api/saveUsuario', {
+        const response = await fetch('/api/saveUsuario',{
             method: 'POST',
             headers: {
                 'accept': 'application/json',
@@ -70,7 +70,15 @@ async function registrarUsuario(name, email, password) {
             setTimeout(() => {
                 window.location.href = 'tareas.html';
             }, 2000);
+        } else if (data.status === 'error' && data.message === 'El correo electrónico ya está registrado.') {
+            // Mostrar mensaje de error si el correo ya existe
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El correo electrónico ya está registrado.'
+            });
         } else {
+            // Mostrar otros errores del servidor
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
