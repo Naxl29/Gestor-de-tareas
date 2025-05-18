@@ -2,8 +2,6 @@
 
 var Tarea = require('../Models/tareaModels');
 
-//Objeto controller para disponer de todas las funciones de ruta
-
 var controller = {
     //Método para guardar una tarea
     saveTarea: async (req, res) => {
@@ -15,6 +13,10 @@ var controller = {
         tarea.title = params.title;
         tarea.description = params.description;
 
+        //Se asigna el usuario que está creando la tarea
+        tarea.userId = req.user.userId;
+
+        //Se valida el título
         try {
             const tareaStored = await tarea.save(); // Guardar en la base de datos
             return res.status(200).send({ // Enviar respuesta
@@ -32,7 +34,7 @@ var controller = {
 
     getTareas: async (req, res) => {
         try {
-            const tareas = await Tarea.find().sort('-date'); // Obtener todas las tareas ordenadas por fecha
+            const tareas = await Tarea.find({ userId: req.user.userId }).sort('-date'); // Obtener todas las tareas ordenadas por fecha
             if (!tareas || tareas.length === 0) { // No hay tareas
                 return res.status(404).send({
                     status: 'Error',
@@ -52,27 +54,35 @@ var controller = {
     },
 
         //Eliminar tarea:
-        deleteTarea: async (req, res) =>{
-            var tareaId = req.params.id;
+        deleteTarea: async (req, res) => {
+            const tareaId = req.params.id;
+
             try {
-                const tareaRemoved = await Tarea.findOneAndDelete({_id: tareaId}); // Eliminar tarea por ID
+                // Asegurarse de que solo se pueda eliminar si la tarea pertenece al usuario autenticado
+                const tareaRemoved = await Tarea.findOneAndDelete({
+                    _id: tareaId,
+                    userId: req.user.userId // Comprobar propiedad
+                });
+
                 if (!tareaRemoved) {
                     return res.status(404).send({
                         status: 'Error',
-                        message: 'No se ha encontrado la tarea'
-                    })
+                        message: 'No tienes permiso para eliminar la tarea.'
+                    });
                 }
-                return res.status(200).send({ // Enviar respuesta
-                    status: 'success', // En caso de éxito
+
+                return res.status(200).send({
+                    status: 'success',
                     tarea: tareaRemoved
-                })
+                });
             } catch (err) {
                 return res.status(500).send({
                     status: 'Error',
                     message: 'Error al eliminar'
-                })
+                });
             }
         },
+
 
         //Actualizar tareas
         updateTarea: async (req, res) => {
@@ -80,9 +90,9 @@ var controller = {
         const { title, description } = req.body;  // Aquí corregi, no estaba tomando los campos
 
         try {
-            const tareaUpdated = await Tarea.findOneAndUpdate( 
-                { _id: tareaId },
-                { title: title, description: description },
+           const tareaUpdated = await Tarea.findOneAndUpdate(
+                { _id: tareaId, userId: req.user.userId },
+                { title, description },
                 { new: true }
             );
             if (!tareaUpdated) {
@@ -96,7 +106,6 @@ var controller = {
                 tarea: tareaUpdated
             });
         } catch (err) {
-            console.error("Error en updateTarea:", err); // Para depurar mejor
             return res.status(500).send({
                 status: "error",
                 message: "Error al actualizar!!"

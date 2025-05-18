@@ -58,9 +58,9 @@ var controller = {
             }
 
             // Verificar la contraseña
-            const isValidPassword = await bcrypt.compare(password, user.password);
+            const ValidPassword = await bcrypt.compare(password, user.password);
 
-            if (!isValidPassword) {
+            if (!ValidPassword) {
             return res.status(401).send({
                 status: "error",
                 message: "Contraseña incorrecta",
@@ -68,9 +68,9 @@ var controller = {
             }
 
              // Generar token
-            const token = jwt.sign(
-                { userId: user._id, email: user.email },
-                'clave_secreta_segura', // Cámbiala por una más segura
+            const token = jwt.sign( // Crear el token
+                { userId: user._id, email: user.email }, 
+                'gestor_de_tareas', // clave secreta
                 { expiresIn: '1h' }
             );
 

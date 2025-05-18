@@ -23,11 +23,27 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para enviar la solicitud POST
     async function postData(title, description) {
         try {
+            const token = localStorage.getItem('token'); 
+
+            // Verifica si el token existe
+            if (!token) {
+                console.warn("No hay token de autenticación. Por favor, inicia sesión.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Sesión requerida",
+                    text: "Por favor, inicia sesión para guardar tareas.",
+                }).then(() => {
+                    window.location.href = "login.html"; // Redirigir al login
+                });
+                return; // Detener la ejecución
+            }
+
             const response = await fetch('/api/saveTarea', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`  // Enviar el token en el encabezado Authorization
                 },
                 body: JSON.stringify({ title, description })
             });

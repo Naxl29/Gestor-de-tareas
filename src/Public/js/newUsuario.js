@@ -68,7 +68,7 @@ async function registrarUsuario(name, email, password) {
             document.getElementById('password').value = '';
 
             setTimeout(() => {
-                window.location.href = 'tareas.html';
+                window.location.href = 'login.html'; // Redirigir a la página de inicio de sesión
             }, 2000);
 
         } else if (data.message === 'El correo electrónico ya está registrado.') { // Si el mensaje es identico al mensaje de backend se activa el else if

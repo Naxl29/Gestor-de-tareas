@@ -9,7 +9,7 @@ const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const updateButton = document.getElementById("btnEdit");
 
-// Verificar si el ID de tarea está 
+// Verificar si el ID de tarea está
 if (!id) {
     Swal.fire({
         icon: "error",
@@ -26,21 +26,31 @@ descriptionInput.value = descriptionValue || "";
 // Función para actualizar la tarea
 async function updateData(id, title, description) {
     try {
-        console.log("/api/updateTarea/" + id);
-        const response = await fetch("/api/updateTarea/" + id,  {
+        const token = localStorage.getItem('token'); // Obtener el token del localStorage
+
+        if (!token) {
+            console.warn("No hay token de autenticación. Por favor, inicia sesión.");
+            Swal.fire({
+                icon: "error",
+                title: "Sesión requerida",
+                text: "Por favor, inicia sesión para actualizar tareas.",
+            }).then(() => {
+                window.location.href = "login.html"; // Redirigir al login
+            });
+            return;
+        }
+
+        const response = await fetch("/api/updateTarea/" + id, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
+                'Authorization': `Bearer ${token}`  // Enviar el token en el encabezado Authorization
             },
             body: JSON.stringify({ title, description }),
         });
 
-        if (!response.ok) {
-            throw new Error("Error al actualizar la tarea");
-        }
-
-        const data = await response.json();
+        const data = await response.json(); // Convertir la respuesta a JSON
 
         // Éxito al actualizar tareas
         Swal.fire({
