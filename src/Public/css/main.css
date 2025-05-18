@@ -166,6 +166,24 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px var(--text-stroke-color);
  }
+
+ .button_cancelar {
+     --border-right: 6px;
+  --text-stroke-color: rgb(227, 14, 14);
+  --animation-color: rgba(44, 62, 80, 0.9);
+  --fs-size: 2em;
+  margin-left: 100px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: 24PX; 
+  font-family: "Arial";
+  position: relative;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+
+ }
+ 
  .hover-text {
   position: absolute;
   box-sizing: border-box;

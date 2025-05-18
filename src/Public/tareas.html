@@ -25,11 +25,11 @@
         </header>
 
         <main>
-            <form>
+            <form autocomplete="off">
                 <h2>Nueva tarea</h2>
                 <div class="input-group">
                     <label for="title">Título</label>
-                    <input type="text" id="title" name="title" placeholder="Título de la tarea" required />
+                    <input type="text" id="title" name="title" placeholder="Título de la tarea" autocomplete="off" required />
                 </div>
                 <div class="input-group">
                     <label for="description">Contenido de la tarea</label>
@@ -43,9 +43,8 @@
             <div class="notes-list-container">
                 <h2>Tareas</h2>
                 <div id="show-tareas" class="notes-list">
-                    <p id="message" class="empty-message">No existen Tareas que mostrar</p>
-                </div>
-                
+                    <p id="message" class="empty-message"></p>
+                </div>  
             </div>
         </main>
     </div>

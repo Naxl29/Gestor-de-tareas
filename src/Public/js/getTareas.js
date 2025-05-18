@@ -4,12 +4,16 @@ async function getTareas() { // Función para obtener las tareas
         const data = await response.json(); // Respuesta del servidor
         console.log(data);
         const showTareas = document.getElementById("show-tareas"); // Mostrar tareas
+        showTareas.innerHTML = "";
+        const mensaje = document.createElement("p");
+        mensaje.id = "message";
+        mensaje.className = "empty-message";
+        showTareas.appendChild(mensaje);
 
         if (!data.tareas || data.tareas.length === 0) { // Si no hay tareas
             $("#message").text("No hay tareas para mostrar");
         } else {
             $("#message").text("");
-            showTareas.innerHTML = "";
 
             data.tareas.forEach((tarea, index) => { // Crear cada tarea
                 const id = tarea._id;
