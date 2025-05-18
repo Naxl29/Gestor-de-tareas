@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const mongoose = require('./src/database/conexion');
 const bodyParser = require('body-parser');
+const mongoose = require('./src/database/conexion');
 const path = require('path');
 
 const app = express();
