@@ -1,8 +1,8 @@
 'use strict';
 
 const express = require('express');
-const mongoose = require('./src/database/conexion');
 const bodyParser = require('body-parser');
+const mongoose = require('./src/database/conexion');
 const path = require('path');
 
 const app = express();
@@ -37,6 +37,11 @@ app.use('/api', usuarioRoutes);
 // Ruta base
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'Public', 'index.html'));
+});
+
+// Ruta para la página de tareas despues de iniciar sesión
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'Public', 'login.html'));
 });
 
 // Iniciar servidor (ya conectado mongoose desde conexion.js)

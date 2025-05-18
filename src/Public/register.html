@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión / Registrarse</title>
+    <title>Registrarse</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -14,26 +15,41 @@
                 <span class="slider"></span>
                 <span class="card-side"></span>
                 <div class="flip-card__inner">
-                    <div class="flip-card__front">
-                        <div class="title">Iniciar Sesión</div>
-                        <form class="flip-card__form" action="/api/login" method="POST">
-                            <input class="flip-card__input" name="email" placeholder="Correo" type="email">
-                            <input class="flip-card__input" name="password" placeholder="Contraseña" type="password">
-                            <button type="submit" class="flip-card__btn">INICIAR</button>
-                        </form>
-                    </div>
+
+                    <!-- Registro -->
                     <div class="flip-card__back">
-                        <div class="title">Registrate</div>
-                        <form class="flip-card__form" action="/api/saveUsuario" method="POST">
-                            <input class="flip-card__input" name="name" placeholder="Nombre" type="text">
-                            <input class="flip-card__input" name="email" placeholder="Correo" type="email">
-                            <input class="flip-card__input" name="password" placeholder="Contraseña" type="password">
-                            <button type="submit" class="flip-card__btn">REGISTRAR</button>
+                        <div class="title">Regístrate</div>
+                        <form class="flip-card__form" id="formRegistro" onsubmit="return false;" autocomplete='off'">
+                            <input id="name" class="flip-card__input" name="name" placeholder="Nombre" type="text" autocomplete="off">
+                            <input id="email" class="flip-card__input" name="email" placeholder="Correo" type="email" autocomplete="off">
+                            <input id="password" class="flip-card__input" name="password" placeholder="Contraseña" type="password" autocomplete="off">
+                            <button id="btnRegistro" class="flip-card__btn" type="button">REGISTRAR</button>
+                            <p class="flip-card__text">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
                         </form>
                     </div>
+
                 </div>
             </label>
         </div>
     </div>
+    <script>
+        const toggle = document.querySelector('.toggle');
+        let timeout;
+
+        toggle.addEventListener('change', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                if (toggle.checked) {
+                    window.location.href = 'register.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            }, 200); // Espera 200ms antes de redirigir
+        });
+    </script>
+
+
+    <!-- Tu archivo JS debe estar al final del body -->
+    <script src="/js/newUsuario.js"></script>
 </body>
 </html>

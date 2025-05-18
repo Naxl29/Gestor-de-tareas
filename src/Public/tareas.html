@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tarea</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.css">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/main.css" />
 </head>
-
 <body>
-
-    <!--ALERTA OCULTA-->
-    <div id="alert" class="alert alert-danger alewrt-dismissible fade show mt-3 mb-3 mx-auto" role="alert">
-        <stroid id="tilte-alert"> ¡ATENCIÓN!</strong> No puedes dejar espacios en blanco. </stroid>
-        <button id= "btn-alert" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
 
     <div class="container">
         <header>
+            <di>
+                <button id="btn_cerrar"  class="bi bi-box-arrow-left btn btn-outline-primary">   Cerrar</button> 
+            </di>
             <h1>TAREAS</h1>
             <div class="profile-container">
                 <div class="profile-image">
-                    <a href="detalles.html"><img src="7979904.jpg" alt="Perfil"></a>
+                    <a href="detalles.html"><img src="7979904.jpg" alt="Perfil" /></a>
                 </div>
                 <span class="profile-text"></span>
             </div>
         </header>
+
         <main>
-            <form class="new-note-container" action="/api/saveTarea" method="post">  <!-- Agregue la ruta para manejar los registros de las nueva tareas -->
+            <form>
                 <h2>Nueva tarea</h2>
                 <div class="input-group">
                     <label for="title">Título</label>
-                    <input type="text" id="title" name="title" placeholder="Título de la tarea">
+                    <input type="text" id="title" name="title" placeholder="Título de la tarea" required />
                 </div>
                 <div class="input-group">
                     <label for="description">Contenido de la tarea</label>
-                    <textarea id="description" name="description" placeholder="Escribe el contenido de tu tarea"></textarea>
+                    <textarea id="description" name="description" placeholder="Escribe el contenido de tu tarea" required></textarea>
                 </div>
-                <input type="submit" class="button" id="btn" value="GUARDAR">
+                <div>
+                    <input type="submit" class="button" id="btn" value="GUARDAR"/>
+                </div>
             </form>
+
             <div class="notes-list-container">
                 <h2>Tareas</h2>
                 <div id="show-tareas" class="notes-list">
                     <p id="message" class="empty-message">No existen Tareas que mostrar</p>
                 </div>
+                
             </div>
         </main>
     </div>
 
-        <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fs-5" id="modal-tilte"></h5>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="content-body">
-            
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="modal-title">Detalles de la tarea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="content-title"></p>
+                    <p id="content-description"></p>
+                    <p id="content-date" class="text-muted"></p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
-    <script src= "js/newTarea.js"></script>
-    <script src="js/getTarea.js"></script>
-</body>
+    <!-- Scripts -->
+   <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" 
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/newTarea.js"></script>
+    <script src="js/getTareas.js"></script>
+    <script src="js/cerrar_sesion.js"></script>
+</body>
 </html>
