@@ -70,13 +70,15 @@ async function registrarUsuario(name, email, password) {
             setTimeout(() => {
                 window.location.href = 'tareas.html';
             }, 2000);
-        } else if (data.status === 'error' && data.message === 'El correo electrónico ya está registrado.') {
-            // Mostrar mensaje de error si el correo ya existe
+
+        } else if (data.message === 'El correo electrónico ya está registrado.') { // Si el mensaje es identico al mensaje de backend se activa el else if
+            // Mostrar mensaje de usuario existente
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'El correo electrónico ya está registrado.'
+                title: 'Usuario existente',
+                text: 'Ya hay una cuenta registrada con ese correo electrónico. Por favor, utiliza uno diferente o inicia sesión.'
             });
+
         } else {
             // Mostrar otros errores del servidor
             Swal.fire({

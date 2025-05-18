@@ -6,30 +6,42 @@ const Usuario = require('../Models/usuarioModel');
 
 var controller = {
 
-    //Método para guardar un usuario
+   //Método para guardar un usuario
     saveUsuario: async (req, res) => {
-        //Se obtienen los datos:
-        var params = req.body;
-        //Objeto para guardar
-        var usuario = new Usuario();
-        usuario.name = params.name;
-        usuario.email = params.email;
-        usuario.password = await bcrypt.hash(params.password, 10);
+        const params = req.body;
 
         try {
+            // Verificar si el correo ya está registrado ignorando mayúsculas y minúsculas
+            const existingUser = await Usuario.findOne({ email: params.email.toLowerCase() });
+
+            if (existingUser) {
+                return res.status(400).send({
+                    status: 'error',
+                    message: 'El correo electrónico ya está registrado.'
+                });
+            }
+
+            // Crear nuevo usuario
+            const usuario = new Usuario();
+            usuario.name = params.name;
+            usuario.email = params.email.toLowerCase(); // Guardamos el email en minúsculas
+            usuario.password = await bcrypt.hash(params.password, 10);
+
             const usuarioStored = await usuario.save();
             return res.status(200).send({
                 status: 'success',
                 usuarioStored
             });
+
         } catch (err) {
-            return res.status(500).send({ 
-                status: "Error",
-                message: "Error al crear usuario",
-                error: err 
+            return res.status(500).send({
+                status: 'error',
+                message: 'Error al crear usuario',
+                error: err.message
             });
         }
     },
+
     
     login: async (req, res) => {
         try {
