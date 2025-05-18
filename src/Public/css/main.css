@@ -209,7 +209,7 @@ body {
 
 .card-side::before {
   position: absolute;
-  content: 'Log in';
+  content: 'Iniciar';
   left: -70px;
   top: 0;
   width: 100px;
@@ -220,7 +220,7 @@ body {
 
 .card-side::after {
   position: absolute;
-  content: 'Sign up';
+  content: 'Registrar';
   left: 70px;
   top: 0;
   width: 100px;
