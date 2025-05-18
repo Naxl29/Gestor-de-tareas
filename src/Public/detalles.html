@@ -1,7 +1,6 @@
-<!-- Reemplaza tu bloque HTML completo con este -->
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,42 +12,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
+
 <body>
 
-<<<<<<< HEAD
-    <div class="perfil-card">
-        <div class="perfil-header">
-            <div class="foto-container-desktop">
-                <img src="/src/Public/img/Hipo.jpg" alt="Tu Foto de Perfil" class="foto-perfil-desktop foto-clickable">
-            </div>
-            <h2 class="nombre-desktop">Tu Nombre Completo</h2>
-            <p class="rol-desktop">Administrador de Tareas</p>
-=======
 <div class="perfil-card">
     <div class="perfil-header">
         <div class="foto-container-desktop text-center">
-            <img src="7979904.jpg" alt="Tu Foto de Perfil" class="foto-perfil-desktop foto-clickable">
->>>>>>> 0f101bc8a357d9a6228fbc71b84442f4e7521f1a
+            <img src="img/Buho.jpg" alt="Tu Foto de Perfil" class="foto-perfil-desktop foto-clickable" id="foto-perfil">
         </div>
-        <div class="text-center">
-            <h3 id="nombre-desktop" class="nombre-desktop">Tu Nombre Completo</h3>
-            <input id="nombre-input" type="text" style="display: none;" value="Tu Nombre Completo">
-            <i class="fas fa-edit editar-estadistica" id="editar-nombre-btn"></i>
-            <i class="fas fa-save guardar-estadistica" id="guardar-nombre-btn" style="display: none;"></i>
+
+            <div class="text-center">
+                <h2 id="nombre-desktop" class="nombre-desktop d-flex justify-content-center align-items-center">
+                    Tu Nombre Completo
+                    <button id="editar-nombre-btn" class="btn-icon ml-2">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button id="guardar-nombre-btn" class="btn-icon ml-2" style="display: none;">
+                        <i class="fas fa-save"></i>
+                    </button>
+                </h2>
+                <input id="nombre-input" type="text" class="form-control w-50 mx-auto" style="display: none;"
+                    value="Tu Nombre Completo">
+            </div>
             <p class="rol-desktop mt-2 text-center"><i class="fas fa-info-circle"></i> Información Personal</p>
         </div>
-    </div>
+
         <div class="cta-button-desktop">
             <a href="tareas.html">Volver</a>
         </div>
     </div>
-</div>
 
-<div id="fotoModal" class="modal">
-    <span class="close-button">&times;</span>
-    <img class="modal-content" id="imgModal">
-</div>
+    <div id="fotoModal" class="modal">
+        <span class="close-button">&times;</span>
+        <img class="modal-content" id="imgModal">
+    </div>
 
-<script src="./js/detalles.js"></script>
+    <script src="./js/detalles.js"></script>
 </body>
 </html>

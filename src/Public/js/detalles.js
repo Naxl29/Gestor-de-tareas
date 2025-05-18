@@ -11,7 +11,7 @@ const guardarNombreBtn = document.getElementById('guardar-nombre-btn');
 if (fotoClickable) {
     fotoClickable.addEventListener('click', function () {
         modal.style.display = "block";
-        modalImg.src = this.src;
+        modalImg.src = fotoClickable.src;
     });
 }
 
@@ -46,4 +46,3 @@ function setupEditarGuardar(editarBtn, guardarBtn, textoSpan, inputBox) {
 
 // Aplicar función a los campos
 setupEditarGuardar(editarNombreBtn, guardarNombreBtn, nombreDesktop, nombreInput);
-
