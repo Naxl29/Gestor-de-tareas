@@ -1,9 +1,12 @@
-
 document.addEventListener('DOMContentLoaded', async () => {
     const userNameInput = document.getElementById('userName');
     const userEmailInput = document.getElementById('userEmail');
     const profileForm = document.getElementById('profileForm');
     const updateBtn = document.getElementById('updateBtn');
+    const fotoPerfil = document.getElementById('foto-perfil');
+    const fotoModal = document.getElementById('fotoModal');
+    const imgModal = document.getElementById('imgModal');
+    const closeButton = document.getElementsByClassName('close-button')[0];
 
     const token = localStorage.getItem('token');
 
@@ -91,6 +94,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                 title: 'Error de conexión',
                 text: 'No se pudo conectar con el servidor para actualizar el perfil.'
             });
+        }
+    });
+
+    fotoPerfil.addEventListener('click', () => {
+        fotoModal.style.display = 'block';
+        imgModal.src = fotoPerfil.src;
+    });
+
+    closeButton.addEventListener('click', () => {
+        fotoModal.style.display = 'none';
+    });
+
+    fotoModal.addEventListener('click', (e) => {
+        if (e.target !== imgModal) {
+            fotoModal.style.display = 'none';
         }
     });
 
