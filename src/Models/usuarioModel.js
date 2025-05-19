@@ -12,7 +12,7 @@ var UsuarioSchema = new Schema({
 })
 
 // Middleware para hashear la contraseña antes de guardar
-UsuarioSchema.pre('save', async function(next) {
+UsuarioSchema.pre('saveUsuario', async function(next) {
     // Solo hashear la contraseña si ha sido modificada o es nueva
     if (!this.isModified('password')) {
         return next();
