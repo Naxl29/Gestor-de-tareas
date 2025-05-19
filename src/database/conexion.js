@@ -1,7 +1,7 @@
 // ./database/conexion.js
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/db_tareas', {
+mongoose.connect('mongodb://127.0.0.1:27017/db_tareas', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
