@@ -52,6 +52,10 @@ async function getTareas() { // Función para obtener las tareas
                 showButton.id = "show" + index;
                 showButton.innerHTML = '<i class="bi bi-eye"></i>'; // Icono de ojo
                 showButton.type = "button";
+                // Estilos aplicados directamente en JavaScript para mejor control
+                showButton.style.width = '30px';
+                showButton.style.height = '30px';
+                showButton.style.padding = '0';
                 showButton.onclick = () => {
                     $("#content-title").text(`Título: ${tarea.title}`);
                     $("#content-description").text(`Descripción: ${tarea.description}`);
@@ -71,8 +75,9 @@ async function getTareas() { // Función para obtener las tareas
                 editButton.id = "edit" + index;
                 editButton.innerHTML = '<i class="bi bi-pencil"></i>'; // Icono de lápiz
                 editButton.type = "button";
-                console.log("Editando tarea:", tarea);
-                console.log("ID generado:", id);
+                editButton.style.width = '30px';
+                editButton.style.height = '30px';
+                editButton.style.padding = '0';
                 editButton.onclick = () => {
                     window.location.href = `edit.html?id=${encodeURIComponent(tarea._id)}&title=${encodeURIComponent(tarea.title)}&description=${encodeURIComponent(tarea.description)}`;
                 };
@@ -82,6 +87,9 @@ async function getTareas() { // Función para obtener las tareas
                 deleteButton.id = "delete" + index;
                 deleteButton.innerHTML = '<i class="bi bi-trash"></i>'; // Icono de papelera
                 deleteButton.type = "button";
+                deleteButton.style.width = '30px';
+                deleteButton.style.height = '30px';
+                deleteButton.style.padding = '0';
                 deleteButton.onclick = () => {
                     confirmDelete(id);
                 };

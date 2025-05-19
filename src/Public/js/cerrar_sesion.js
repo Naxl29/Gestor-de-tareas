@@ -3,7 +3,7 @@ document.getElementById('btn_cerrar').addEventListener('click', (e) => {
 
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "¿Quieres cerrar tu sesión actual?",
+        text: "¿Quieres cerrar sesión?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

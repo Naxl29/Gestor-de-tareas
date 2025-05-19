@@ -2,6 +2,7 @@
 
 var express = require('express');
 var Usuario = require('../Controllers/usuariosController');
+const auth = require('../middlewares/auth');
 var router = express.Router();
 
 //rutas de usuarios
@@ -9,14 +10,11 @@ var router = express.Router();
 // Ruta para guardar un nuevo usuario
 router.post('/saveUsuario', Usuario.saveUsuario);
 
-// Ruta para obtener todos los usuarios
-router.get('/usuarios', Usuario.getUsuarios);
-
 // Ruta para obtener un usuario por ID
-router.delete('/deleteUsuario/:id', Usuario.deleteUsuario);
+router.get('/usuario', auth, Usuario.getUsuarioById);
 
-// Ruta para actualizar un usuario
-router.put('/updateUsuario/:id', Usuario.updateUsuario);
+// Ruta para actualizar el usuario actual
+router.put('/usuario', auth, Usuario.updateCurrentUser);
 
 // Ruta para iniciar sesión
 router.post('/login', Usuario.login)
@@ -25,3 +23,4 @@ router.post('/login', Usuario.login)
 router.post('/cerrarSesion', Usuario.cerrarSesion);
 
 module.exports = router;
+
