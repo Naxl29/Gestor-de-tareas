@@ -141,7 +141,8 @@ const controller = {
                 });
             }
 
-            let updateFields = {};
+            // Construir el objeto de actualización
+            let updateFields = {}; // Solo incluir campos que se van a actualizar
             if (name !== undefined) updateFields.name = name;
             if (email !== undefined) updateFields.email = email.toLowerCase();
 
